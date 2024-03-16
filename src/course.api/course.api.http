@@ -1,6 +1,5 @@
 @course.api_HostAddress = http://localhost:5167
 
-GET {{course.api_HostAddress}}/weatherforecast/
+POST {{course.api_HostAddress}}/v1/api/course
 Accept: application/json
-
 ###

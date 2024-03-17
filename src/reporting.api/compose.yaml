@@ -1,0 +1,21 @@
+services:
+  eschool.reporting.db.server:
+    image: mysql
+    ports:
+      - 3390:3306
+    environment:
+      MYSQL_PASSWORD: reporting
+      MYSQL_USER: mysql
+      MYSQL_DATABASE: reporting.db
+    volumes:
+      - eschool.reporting-data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    depends_on:
+      - eschool.reporting.db.server
+
+volumes:
+  eschool.reporting-data:

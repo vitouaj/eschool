@@ -22,7 +22,7 @@ public static class CourseEnpoints
 
     static async Task<IResult> GetCourseById(string id, ICourseRepository repository)
     {
-        var course = await repository.GetCourseByIdAsync(Guid.Parse(id));
+        var course = await repository.GetCourseByIdAsync(id);
 
         if (course == null)
             return Results.BadRequest("Course is not found!");
@@ -47,7 +47,7 @@ public static class CourseEnpoints
         return Results.Ok(updated);
     }
 
-    static async Task<IResult> DeleteCourse(ICourseRepository repository, Guid id)
+    static async Task<IResult> DeleteCourse(ICourseRepository repository, string id)
     {
         var courseId = await repository.DeleteByIdAsync(id);
 

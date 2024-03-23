@@ -1,8 +1,8 @@
 ﻿namespace course.api;
 
-public class ModuleDto(string name, string? description, DateOnly startedDate, DateOnly endedDate, int numberOfHours, Guid courseId)
+public class ModuleDto(string name, string? description, DateOnly startedDate, DateOnly endedDate, int numberOfHours, string courseId)
 {
-    public Guid CourseId { get; set; } = courseId;
+    public string CourseId { get; set; } = courseId;
     public string Name { get; set; } = name;
     public string? Description { get; set; } = description;
     public DateOnly StartedDate { get; set; } = startedDate;

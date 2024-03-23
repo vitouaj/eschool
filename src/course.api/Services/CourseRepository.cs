@@ -1,5 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using course.api.Data;
+using course.api.Models;
+using course.api.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace course.api.Services;
@@ -11,7 +13,7 @@ public class CourseRepository(AppDbContext context) : ICourseRepository
     {
         var newCourse = new Course
         {
-            Id = Guid.NewGuid(),
+            Id = IDGenerator.CourseId(),
             Name = dto.Name,
             HighestScore = dto.HighestScore,
             PassingScore = dto.PassingScore,
@@ -24,10 +26,10 @@ public class CourseRepository(AppDbContext context) : ICourseRepository
         return newCourse;
     }
 
-    public async Task<object?> DeleteByIdAsync(Guid guid)
+    public async Task<object?> DeleteByIdAsync(string courseId)
     {
         var course = await db.Courses
-            .FirstOrDefaultAsync(c => c.Id == guid);
+            .FirstOrDefaultAsync(c => c.Id.Equals(courseId));
 
         if (course is null)
             throw new CourseNotFoundException("Course not found");
@@ -47,14 +49,14 @@ public class CourseRepository(AppDbContext context) : ICourseRepository
         return courses;
     }
 
-    public async Task<object?> GetCourseByIdAsync(Guid id)
+    public async Task<object?> GetCourseByIdAsync(string courseId)
     {
         var course = await db.Courses
             .Include(c => c.Modules)
             .Select(s => new
             {
-                Id = s.Id,
-                Name = s.Name,
+                s.Id,
+                s.Name,
                 Subject = new
                 {
                     s.SubjectId,
@@ -65,7 +67,7 @@ public class CourseRepository(AppDbContext context) : ICourseRepository
                     s.GradeId,
                     s.Grade.Level
                 },
-                Description = s.Description,
+                s.Description,
                 Modules = s.Modules
                     .Select(m => new
                     {
@@ -83,14 +85,14 @@ public class CourseRepository(AppDbContext context) : ICourseRepository
                             }).ToList()
                     }).ToList()
             })
-            .FirstOrDefaultAsync(c => c.Id == id);
+            .FirstOrDefaultAsync(c => c.Id.Equals(courseId));
 
         return course;
     }
 
     public async Task<object?> UpdateAsync(CourseDto dto)
     {
-        var course = await db.Courses.FirstOrDefaultAsync(c => c.Id == dto.Id);
+        var course = await db.Courses.FirstOrDefaultAsync(c => c.Id.Equals(dto.Id));
         if (course == null)
             throw new CourseNotFoundException("Course is not found");
 

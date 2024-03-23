@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Courses;
+use App\Models\Report;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -13,11 +14,14 @@ class CourseController extends Controller
      */
     public function index()
     {
+        $reports = Report::all();
         $courses = Courses::all();
         return response()->json([
             'status' => true,
             'courses' => $courses,
-            'code' => 200
+            'reports' => $reports,
+            'code' => 200,
+            'error' => false
         ]);
     }
 

@@ -14,7 +14,7 @@ public static class ModuleEnpoints
 
     static async Task<IResult> GetById(string id, IModuleRepository repository)
     {
-        var module = await repository.GetByIdAsync(Guid.Parse(id));
+        var module = await repository.GetByIdAsync(id);
 
         if (module == null)
             return Results.BadRequest("module is not found!");
@@ -39,7 +39,7 @@ public static class ModuleEnpoints
         return Results.Ok(updated);
     }
 
-    static async Task<IResult> Delete(IModuleRepository repository, Guid id)
+    static async Task<IResult> Delete(IModuleRepository repository, string id)
     {
         var moduleId = await repository.DeleteAsync(id);
 

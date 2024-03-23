@@ -12,7 +12,7 @@ public static class UnitEnpoints
 
     static async Task<IResult> GetById(string id, IUnitRepository repository)
     {
-        var unit = await repository.GetById(Guid.Parse(id));
+        var unit = await repository.GetById(id);
 
         if (unit == null)
             return Results.BadRequest("unit is not found!");
@@ -37,7 +37,7 @@ public static class UnitEnpoints
         return Results.Ok(updated);
     }
 
-    static async Task<IResult> Delete(IUnitRepository repository, Guid id)
+    static async Task<IResult> Delete(IUnitRepository repository, string id)
     {
         var unitId = await repository.Delete(id);
 

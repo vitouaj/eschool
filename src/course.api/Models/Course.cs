@@ -1,19 +1,19 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace course.api;
+namespace course.api.Models;
 
 public class Course
 {
-    public Guid Id { get; set; }
+    public string Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public float HighestScore { get; set; }
     public float PassingScore { get; set; }
     public string? Description { get; set; }
     public bool IsValid { get; set; } = false;
-    public int GradeId { get; set; }
+    public string GradeId { get; set; }
     [JsonIgnore]
     public Grade Grade { get; set; }
-    public int SubjectId { get; set; }
+    public string SubjectId { get; set; }
     [JsonIgnore]
     public Subject Subject { get; set; }
     [JsonIgnore]

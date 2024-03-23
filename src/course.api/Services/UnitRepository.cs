@@ -1,5 +1,7 @@
 ﻿
 using course.api.Data;
+using course.api.Models;
+using course.api.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace course.api;
@@ -11,7 +13,7 @@ public class UnitRepository(AppDbContext context) : IUnitRepository
     {
         var unit = new Unit
         {
-            Id = Guid.NewGuid(),
+            Id = IDGenerator.UnitId(),
             ModuleId = dto.ModuleId,
             Description = dto.Description,
             Name = dto.Name,
@@ -21,7 +23,7 @@ public class UnitRepository(AppDbContext context) : IUnitRepository
         return unit;
     }
 
-    public Task<object?> Delete(Guid unitId)
+    public Task<object?> Delete(string unitId)
     {
         throw new NotImplementedException();
     }
@@ -32,7 +34,7 @@ public class UnitRepository(AppDbContext context) : IUnitRepository
         return units.Select(u => (object?)u).ToList();
     }
 
-    public Task<object?> GetById(Guid unitId)
+    public Task<object?> GetById(string unitId)
     {
         throw new NotImplementedException();
     }

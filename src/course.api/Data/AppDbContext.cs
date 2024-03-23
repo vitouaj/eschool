@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using course.api.Models;
+using course.api.Utils;
 
 namespace course.api.Data;
 
@@ -22,10 +24,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Course>()
-            .HasMany(c => c.Modules)
-            .WithOne(m => m.Course)
-            .HasForeignKey(m => m.CourseId)
-            .OnDelete(DeleteBehavior.Cascade);
+        .HasMany(c => c.Modules)
+        .WithOne(m => m.Course)
+        .HasForeignKey(m => m.CourseId)
+        .OnDelete(DeleteBehavior.Cascade);
 
 
         modelBuilder.Entity<CourseModule>()
@@ -47,28 +49,28 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration
 
         modelBuilder.Entity<Grade>()
             .HasData(new List<Grade>(){
-                new Grade(1, 7),
-                new Grade(2, 8),
-                new Grade(3, 9),
-                new Grade(4, 10),
-                new Grade(5, 11),
-                new Grade(6, 12)
+                new Grade(IDGenerator.GradeId(GradeLevel.G7), GradeLevel.G7),
+                new Grade(IDGenerator.GradeId(GradeLevel.G8), GradeLevel.G8),
+                new Grade(IDGenerator.GradeId(GradeLevel.G9), GradeLevel.G9),
+                new Grade(IDGenerator.GradeId(GradeLevel.G10), GradeLevel.G10),
+                new Grade(IDGenerator.GradeId(GradeLevel.G11), GradeLevel.G11),
+                new Grade(IDGenerator.GradeId(GradeLevel.G12), GradeLevel.G12),
             });
 
         modelBuilder.Entity<Subject>()
             .HasData(new List<Subject>(){
-                new Subject(1, "Math"),
-                new Subject(2, "Physic"),
-                new Subject(3, "History"),
-                new Subject(4, "Biology"),
-                new Subject(5, "Sport"),
-                new Subject(6, "English"),
-                new Subject(7, "Khmer"),
-                new Subject(8, "Utility"),
-                new Subject(9, "Chemistry"),
-                new Subject(10, "Earth"),
-                new Subject(11, "Geolography"),
-                new Subject(12, "Chinese")
+                new Subject(IDGenerator.SubjectId(), "Math"),
+                new Subject(IDGenerator.SubjectId(), "Physic"),
+                new Subject(IDGenerator.SubjectId(), "History"),
+                new Subject(IDGenerator.SubjectId(), "Biology"),
+                new Subject(IDGenerator.SubjectId(), "Sport"),
+                new Subject(IDGenerator.SubjectId(), "English"),
+                new Subject(IDGenerator.SubjectId(), "Khmer"),
+                new Subject(IDGenerator.SubjectId(), "Utility"),
+                new Subject(IDGenerator.SubjectId(), "Chemistry"),
+                new Subject(IDGenerator.SubjectId(), "Earth"),
+                new Subject(IDGenerator.SubjectId(), "Geolography"),
+                new Subject(IDGenerator.SubjectId(), "Chinese")
             });
     }
 }

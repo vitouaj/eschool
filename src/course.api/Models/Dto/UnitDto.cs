@@ -1,8 +1,8 @@
 ﻿namespace course.api;
 
-public class UnitDto(string name, string? description, int moduleId)
+public class UnitDto(string name, string? description, string moduleId)
 {
-    public int ModuleId { get; set; } = moduleId;
+    public string ModuleId { get; set; } = moduleId;
     public string Name { get; set; } = name;
     public string? Description { get; set; } = description;
 

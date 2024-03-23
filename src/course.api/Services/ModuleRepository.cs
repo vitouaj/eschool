@@ -1,7 +1,6 @@
 ﻿
-
 using course.api.Data;
-using Microsoft.AspNetCore.Components.Web;
+using course.api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace course.api;
@@ -26,7 +25,7 @@ public class ModuleRepository(AppDbContext context) : IModuleRepository
         return module;
     }
 
-    public Task<object?> DeleteAsync(Guid moduleId)
+    public Task<object?> DeleteAsync(string moduleId)
     {
         throw new NotImplementedException();
     }
@@ -38,7 +37,7 @@ public class ModuleRepository(AppDbContext context) : IModuleRepository
         return modules.Select(c => (object?)c).ToList();
     }
 
-    public Task<object?> GetByIdAsync(Guid moduleId)
+    public Task<object?> GetByIdAsync(string moduleId)
     {
         throw new NotImplementedException();
     }

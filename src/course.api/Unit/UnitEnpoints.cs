@@ -1,4 +1,4 @@
-﻿namespace course.api;
+﻿namespace course.api.Unit;
 
 public static class UnitEnpoints
 {

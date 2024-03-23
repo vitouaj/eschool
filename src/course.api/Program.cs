@@ -1,7 +1,9 @@
-using course.api;
-using course.api.Apis;
 using course.api.Data;
+using course.api.Apis;
 using course.api.Services;
+using course.api;
+using course.api.Course;
+using course.api.Unit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,7 @@ builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IUnitRepository, UnitRepository>();
 builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
 builder.Services.AddDateOnlyTimeOnlyStringConverters();
-builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddDbContext<course.api.Data.AppDbContext>();
 
 var app = builder.Build();
 

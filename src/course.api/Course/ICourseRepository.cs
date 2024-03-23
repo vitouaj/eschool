@@ -1,6 +1,4 @@
-﻿using course.api.Models;
-
-namespace course.api;
+﻿namespace course.api.Course;
 
 public interface ICourseRepository
 {

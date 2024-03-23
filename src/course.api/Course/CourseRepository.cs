@@ -1,20 +1,18 @@
-﻿using System.Net.Http.Headers;
-using course.api.Data;
-using course.api.Models;
+﻿using course.api.Course;
 using course.api.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace course.api.Services;
 
-public class CourseRepository(AppDbContext context) : ICourseRepository
+public class CourseRepository(course.api.Data.AppDbContext context) : ICourseRepository
 {
-    private AppDbContext db = context;
-    public async Task<Course> AddCourseAsync(CourseDto dto)
+    private course.api.Data.AppDbContext db = context;
+    public async Task<Course.Course> AddCourseAsync(CourseDto dto)
     {
-        var newCourse = new Course
+        var newCourse = new Course.Course
         {
             Id = IDGenerator.CourseId(),
-            Name = dto.Name,
+            Title = dto.Name,
             HighestScore = dto.HighestScore,
             PassingScore = dto.PassingScore,
             Description = dto.Description,
@@ -42,7 +40,7 @@ public class CourseRepository(AppDbContext context) : ICourseRepository
     public async Task<object?> GetAllAsync(int pageIndex, int pageSize)
     {
         var courses = await db.Courses
-        .OrderBy(c => c.Name)
+        .OrderBy(c => c.Title)
         .Skip(pageSize * pageIndex)
         .Take(pageSize)
         .ToListAsync();
@@ -56,17 +54,9 @@ public class CourseRepository(AppDbContext context) : ICourseRepository
             .Select(s => new
             {
                 s.Id,
-                s.Name,
-                Subject = new
-                {
-                    s.SubjectId,
-                    s.Subject.Name
-                },
-                Grade = new
-                {
-                    s.GradeId,
-                    s.Grade.Level
-                },
+                s.Title,
+                Subject = s.SubjectId,
+                Grade = s.GradeId,
                 s.Description,
                 Modules = s.Modules
                     .Select(m => new
@@ -96,7 +86,7 @@ public class CourseRepository(AppDbContext context) : ICourseRepository
         if (course == null)
             throw new CourseNotFoundException("Course is not found");
 
-        course.Name = dto.Name;
+        course.Title = dto.Name;
         course.SubjectId = dto.SubjectId;
         course.GradeId = dto.GradeId;
         course.Description = dto.Description;

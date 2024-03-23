@@ -1,16 +1,15 @@
 ﻿
-using course.api.Data;
-using course.api.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace course.api;
 
-public class ModuleRepository(AppDbContext context) : IModuleRepository
+public class ModuleRepository(course.api.Data.AppDbContext context) : IModuleRepository
 {
-    private readonly AppDbContext db = context;
-    public async Task<CourseModule> AddModuleAsync(ModuleDto dto)
+    private readonly course.api.Data.AppDbContext db = context;
+    public async Task<Module.Module> AddModuleAsync(ModuleDto dto)
     {
-        var module = new CourseModule
+        var module = new Module.Module
         {
             CourseId = dto.CourseId,
             Name = dto.Name,

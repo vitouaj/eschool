@@ -2,7 +2,7 @@
 
 public enum SubjectType
 {
-    MATH,
+    MATH = 11,
     KHMER,
     HISTORY,
     GEOGRAPHY,

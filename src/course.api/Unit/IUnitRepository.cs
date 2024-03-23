@@ -1,6 +1,5 @@
-﻿using course.api.Models;
-
-namespace course.api;
+﻿
+namespace course.api.Unit;
 
 public interface IUnitRepository
 {

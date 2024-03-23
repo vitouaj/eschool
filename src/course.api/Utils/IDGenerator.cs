@@ -18,25 +18,17 @@ for example:
 
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
-using course.api.Models;
+using course.api.Grade;
+using course.api.Subject;
 
 namespace course.api.Utils;
 public sealed class IDGenerator
 {
-    public static string GradeId(GradeLevel grade) => grade switch
-    {
-        GradeLevel.G7 => "G07",
-        GradeLevel.G8 => "G08",
-        GradeLevel.G9 => "G09",
-        GradeLevel.G10 => "G10",
-        GradeLevel.G11 => "G11",
-        GradeLevel.G12 => "G12",
-        _ => throw new ArgumentException("Invalid enum value for command", nameof(grade)),
-    };
+    public static string GradeId(GradeLevel grade) => grade.ToString();
+    public static string SubjectId(SubjectType subject) => subject.ToString();
     public static string CourseId() => $"Co-{DateTime.Now:yyyyMMdd}{Guid.NewGuid().ToString().Substring(0, 5)}";
     public static string ModuleId() => $"Mo-{DateTime.Now:yyyyMMdd}{Guid.NewGuid().ToString().Substring(0, 5)}";
     public static string UnitId() => $"Un-{DateTime.Now:yyyyMMdd}{Guid.NewGuid().ToString().Substring(0, 5)}";
-    public static string SubjectId() => $"Su-{DateTime.Now:yyyyMMdd}{Guid.NewGuid().ToString().Substring(0, 5)}";
 
 }
 

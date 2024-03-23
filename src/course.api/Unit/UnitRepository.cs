@@ -1,17 +1,17 @@
 ﻿
-using course.api.Data;
-using course.api.Models;
+
+using course.api.Unit;
 using course.api.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace course.api;
 
-public class UnitRepository(AppDbContext context) : IUnitRepository
+public class UnitRepository(course.api.Data.AppDbContext context) : IUnitRepository
 {
-    private readonly AppDbContext db = context;
-    public async Task<Unit> AddUnit(UnitDto dto)
+    private readonly course.api.Data.AppDbContext db = context;
+    public async Task<Unit.Unit> AddUnit(UnitDto dto)
     {
-        var unit = new Unit
+        var unit = new Unit.Unit
         {
             Id = IDGenerator.UnitId(),
             ModuleId = dto.ModuleId,
